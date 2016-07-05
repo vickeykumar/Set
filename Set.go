@@ -145,3 +145,50 @@ func Difference(s1 *Set, s2sets ...*Set) *Set {
 	}
 	return s
 }
+
+// Returns true if the set is equal to another set.
+func (s *Set) Eq(anotherSet *Set) bool {
+	if s.Len() == anotherSet.Len() {
+		for key, _ := range s.set {
+			_, ok := anotherSet.set[key]
+			if !ok {
+				return false
+			}
+		}
+		return true
+	}
+	return false
+}
+
+// Returns true if intersection of two sets returns null.
+func (s *Set) Isdisjoint(anotherSet *Set) bool {
+	if Intersection(s, anotherSet).Len() == 0 {
+		return true
+	}
+	return false
+}
+
+// Returns true if the set is subset of another set.
+func (s *Set) Issubset(anotherSet *Set) bool {
+	if Intersection(s, anotherSet).Eq(s) {
+		return true
+	}
+	return false
+}
+
+// Returns ture if the set is superset of another set.
+func (s *Set) Issuperset(anotherSet *Set) bool {
+	if Intersection(s, anotherSet).Eq(anotherSet) {
+		return true
+	}
+	return false
+}
+
+// returns true if the set contains the given element.
+func (s *Set) Contains(elem interface{}) bool {
+	_, ok := s.set[elem]
+	if ok {
+		return true
+	}
+	return false
+}

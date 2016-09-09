@@ -56,7 +56,7 @@ func (s *Set) Add(keys ...interface{}) {
 
 // returns the Set as Slice or slice of interfaces (in case of hetrogeneous set.)
 // need to typcast to appropriate type before using.
-func (s *Set) Set() interface{} {
+func (s *Set) ToList() interface{} {
 	set := reflect.MakeSlice(s.setType, 0, s.Len())
 	for key, _ := range s.set {
 		set = reflect.Append(set, reflect.ValueOf(key))
